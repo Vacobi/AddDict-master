@@ -1,0 +1,37 @@
+version: '1'
+services:
+  addict:
+    build: ./AddDict
+    ports:
+      - '8080:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://master_postgres:5432/add_dict_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=pswd
+    depends_on:
+      - userservice
+
+  userservice:
+    build: ./AddDict-UserService
+    ports:
+      - '8081:8081'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://master_postgres:5432/add_dict_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=pswd
+    depends_on:
+      - master_postgres
+
+  master_postgres:
+    image: postgres:13.3
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=pswd
+      - POSTGRES_DB=add_dict_db
+    ports:
+      - '5432:5432'
+
+  master_redis:
+    image: redis/redis-stack:latest
+    ports:
+      - '6379:6379'

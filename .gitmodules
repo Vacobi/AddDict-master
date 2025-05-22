@@ -1,0 +1,6 @@
+[submodule "user-service"]
+	path = user-service
+	url = https://github.com/Vacobi/AddDict-UserService.git
+[submodule "add-dict"]
+	path = add-dict
+	url = https://github.com/Vacobi/AddDict.git
